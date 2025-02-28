@@ -16,6 +16,11 @@ def get_llm(model_name):
         model_name=model_name, 
         base_url=API_URL, 
         api_key=API_KEY,
+        temperature=0.2,  # Low randomness for structured, fact-based compliments
+        max_tokens=35,  # Strict length control to avoid unnecessary details
+        top_p=0.8,  # Keeps responses precise while allowing slight creativity
+        frequency_penalty=0.2,  # Slight repetition reduction for uniqueness
+        presence_penalty=0.1  # Ensures relevant yet varied outputs
     )
 
 def generate_mail(llm, bio):
