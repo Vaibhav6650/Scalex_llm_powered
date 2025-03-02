@@ -92,7 +92,7 @@ if option == "Upload Data":
         # Store filtered unique contacts in session state
         st.session_state.uploaded_df = df.drop_duplicates(subset=['Public email'])
         
-        st.success(f"✅ {len(st.session_state.uploaded_df)} new unique contacts loaded!")
+        st.success(f"{len(st.session_state.uploaded_df)} new unique contacts loaded!")
         st.dataframe(st.session_state.uploaded_df)
 
 
@@ -115,7 +115,7 @@ elif option == "Filter Data":
             # Remove duplicates based on Public email
             combined_df = pd.concat([selected_data,master_df]).drop_duplicates(subset=['Public email'], keep='first')
             combined_df.to_csv(MASTER_FILE, index=False)
-            st.success("✅ Unique data added to Master Dataset!")
+            st.success("Unique data added to Master Dataset!")
 
 # Generate Personalized Compliments
 elif option == "Generate Compliments":
@@ -133,10 +133,10 @@ elif option == "Generate Compliments":
             for idx, row in selected_data.iterrows():
                 selected_data.loc[idx, "Compliment"] = generate_mail(llm, row["Biography"])
                 progress_bar.progress(min((idx + 1) / total_rows, 1.0))
-            st.success("✅ Compliments generated!")
+            st.success("Compliments generated!")
             st.dataframe(selected_data[["Username", "Public email", "Followers count", "Compliment", "Profile link"]])
             csv_data = selected_data.to_csv(index=False)
-            st.download_button("📩 Download CSV", data=csv_data, file_name="Personalized_Compliments.csv", mime="text/csv")
+            st.download_button("Download CSV", data=csv_data, file_name="Personalized_Compliments.csv", mime="text/csv")
 
 # Master Dataset View
 elif option == "Master Dataset":
